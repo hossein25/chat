@@ -1,4 +1,13 @@
-import { Alert, Box, Button, CircularProgress, Paper, Stack, TextField, Typography } from '@mui/material';
+import {
+  Alert,
+  Box,
+  Button,
+  CircularProgress,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { sendMessageToOpenAI } from '../../api/openai.service';
 
@@ -7,7 +16,7 @@ const TextChat: FC = () => {
   const [userMessage, setUserMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  
+
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -22,11 +31,17 @@ const TextChat: FC = () => {
 
     try {
       const botResponse = await sendMessageToOpenAI(userMessage);
-      setMessages([...newMessages.slice(0, -1), { user: userMessage, bot: botResponse }]);
+      setMessages([
+        ...newMessages.slice(0, -1),
+        { user: userMessage, bot: botResponse },
+      ]);
     } catch (error) {
       console.error('Error sending message:', error);
       setError('Sorry, something went wrong!');
-      setMessages([...newMessages.slice(0, -1), { user: userMessage, bot: 'Error: Unable to process request.' }]);
+      setMessages([
+        ...newMessages.slice(0, -1),
+        { user: userMessage, bot: 'Error: Unable to process request.' },
+      ]);
     } finally {
       setIsLoading(false);
     }
@@ -39,23 +54,31 @@ const TextChat: FC = () => {
   }, [messages]);
 
   return (
-    <Box sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '100vh',
-      padding: 2,
-      backgroundColor: '#f4f6f8',
-      fontFamily: '"Roboto", sans-serif',
-    }}
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        padding: 2,
+        backgroundColor: '#f4f6f8',
+        fontFamily: '"Roboto", sans-serif',
+      }}
     >
-      <Typography variant="h4" gutterBottom sx={{ color: 'grey.800' }}>
-        Hossein AI 😂
+      <Typography
+        variant="h4"
+        gutterBottom
+        sx={{ color: '#3f51b5', fontWeight: 'bold', marginBottom: 4 }}
+      >
+        Text Chat - Hossein AI 😂
       </Typography>
 
       {error && (
-        <Alert severity="error" sx={{ width: '100%', maxWidth: 600, marginBottom: 2 }}>
+        <Alert
+          severity="error"
+          sx={{ width: '100%', maxWidth: 600, marginBottom: 2 }}
+        >
           {error}
         </Alert>
       )}
