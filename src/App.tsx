@@ -1,6 +1,7 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import { useState } from 'react';
 import RealtimeChat from './features/realtime-chat/RealtimeChat';
+import RealtimeVoice from './features/realtime-voice/RealtimeVoice';
 import TextChat from './features/text-chat/TextChat';
 import { CustomThemeProvider } from './providers/ThemeProvider';
 
@@ -27,9 +28,11 @@ function App() {
         <Tabs value={activeTab} onChange={handleChange}>
           <Tab label="Text Chat" />
           <Tab label="Realtime Chat" />
+          <Tab label="Realtime Voice" />
         </Tabs>
         {activeTab === 0 && <TextChat />}
         {activeTab === 1 && <RealtimeChat />}
+        {activeTab === 2 && <RealtimeVoice />}
       </Box>
     </CustomThemeProvider>
   );
